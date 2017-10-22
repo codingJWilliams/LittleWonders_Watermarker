@@ -9,6 +9,7 @@
   "author": "Jay Williams",
   "license": "ISC",
   "dependencies": {
-    "gm": "^1.23.0"
+    "gm": "^1.23.0",
+    "progress-promise": "0.0.6"
   }
 }
