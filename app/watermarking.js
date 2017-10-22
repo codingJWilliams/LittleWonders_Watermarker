@@ -25,9 +25,9 @@ function watermark(file, output) {
     });
   })  
 }
-function batchWatermark(filesInFolder, filesOutFolder) {
+function batchWatermark(filesInFolder) {
   var filesInFolder = resolve(filesInFolder);
-  var filesOutFolder = resolve(filesOutFolder);
+  console.log(filesInFolder)
   return new Promise((resolve, reject) => {
     fs.readdir(filesInFolder, (err, files) => {
       // Files is now a list of all baby photos
@@ -35,14 +35,15 @@ function batchWatermark(filesInFolder, filesOutFolder) {
       for ( var i = 0; i < files.length; i++ ) {
         var file = files[i];
         var inPath = require("path").join(filesInFolder, file);
-        var outPath = require("path").join(filesInFolder, "..", "out", i.toString() + ".jpg");
+        var outPath = require("path").join(filesInFolder, "..", "webready", i.toString() + ".jpg");
         console.log(inPath, outPath);
         thePromised.push(watermark(inPath, outPath));
       }
       Promise.all(thePromised).then( (res) => {
-        console.log("Dun")
+        resolve()
       })
     })
   })
 }
-batchWatermark("./in", "./in")
+exports.batch = batchWatermark;
+exports.single = watermark;
