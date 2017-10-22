@@ -1,0 +1,11 @@
+{
+  "name": "littlewonders_watermarker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "watermarking.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jay Williams",
+  "license": "ISC"
+}
