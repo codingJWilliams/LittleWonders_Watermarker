@@ -5,7 +5,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="stylesheet" href="local://spin.css">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
   </head>
@@ -31,9 +31,11 @@
         </div>
         <div class="col-sm-4" id="loading" style="display: none">
             <div class="card bg-dark text-white">
-                <img class="card-img-top" src="https://i.redd.it/ounq1mw5kdxy.gif" alt="Loading">
+                <div class="card-image-top" style="height: 250px" id="loading">
+                    <div class="loading-dot"></div>
+                </div>
                 <div class="card-body">
-                    <p class="card-text" id="witty"></p>
+                    <!--p class="card-text" id="witty"></p-->
                 </div>
             </div>
         </div>
