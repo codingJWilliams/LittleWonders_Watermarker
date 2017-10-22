@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>Hello, world!</title>
+    <title>Little Wonders Watermarker</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,7 +13,7 @@
     <nav class="navbar navbar-dark bg-black">
       <a class="navbar-brand" href="#">Little Wonders Watermarker</a>
       <span class="navbar-text">
-          Navbar text with an inline element
+          By Jay Williams
       </span>
     </nav>
     <br>
@@ -24,14 +24,26 @@
         <div class="col-sm-4">
           
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4" id="droppls">
             <div class="card bg-dark text-white">
                 <img id="drag-file" class="card-img-top" src="https://maxcdn.icons8.com/Share/icon/Very_Basic//upload_to_the_cloud1600.png" alt="Drag here">
             </div>
         </div>
         <div class="col-sm-4" id="loading" style="display: none">
             <div class="card bg-dark text-white">
-                <img id="drag-file" class="card-img-top" src="https://maxcdn.icons8.com/Share/icon/Very_Basic//upload_to_the_cloud1600.png" alt="Drag here">
+                <img class="card-img-top" src="https://i.redd.it/ounq1mw5kdxy.gif" alt="Loading">
+                <div class="card-body">
+                    <p class="card-text" id="witty"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4" id="done" style="display: none">
+            <div class="card bg-dark text-white">
+                <img class="card-img-top" src="local://tick.png" alt="Done">
+                <div class="card-body">
+                    <button class="btn btn-outline-danger" onclick="require('electron').remote.getCurrentWindow().close()"> Close </button>
+                    <button class="btn btn-outline-success" onclick="$('#done').hide(); $('#droppls').show()"> Do another </button>
+                </div>
             </div>
         </div>
         <div class="col-sm-4">
@@ -52,10 +64,20 @@
         ipcRenderer.on('async-reply', (event, arg) => {  
             // Print 2
             if (arg.status === "done") {
-              console.log("done")
+              $("#loading").hide()
+              $("#done").show()
             }
         });
         (function () {
+            setInterval( () => {
+                var wit = [
+                    "Beep beep.",
+                    "Your photos are important to us. Please hold.",
+                    "Processing",
+                    "Loading philanges"
+                ]
+                $("#witty").text( wit[Math.round(Math.random() * wit.length)] )
+            }, 2000)
             var holder = document.getElementById('drag-file');
     
             holder.ondragover = () => {
@@ -74,6 +96,9 @@
                 e.preventDefault();
                 for (let f of e.dataTransfer.files) {
                   console.log(f.path)
+                  $("#droppls").hide()
+                  $("#loading").show()
+                  
                   ipcRenderer.send("async", f.path);
                 }
                 

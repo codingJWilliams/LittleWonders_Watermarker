@@ -1,4 +1,4 @@
-const {app, BrowserWindow, ipcMain} = require('electron')
+const {app, BrowserWindow, ipcMain, protocol} = require('electron')
 const path = require('path')
 const url = require('url')
 var wm = require("./watermarking");
@@ -17,10 +17,15 @@ function createWindow () {
     protocol: 'file:',
     slashes: true
   }))
-  //win.setMenu(null);
+  win.setMenu(null);
   // Open the DevTools.
   //win.webContents.openDevTools()
-
+  protocol.registerFileProtocol('local', (request, callback) => {
+    const url = request.url.substr(8)
+    callback({path: path.normalize(`${__dirname}/${url}`)})
+  }, (error) => {
+    if (error) console.error('Failed to register protocol')
+  })
   // Emitted when the window is closed.
   win.on('closed', () => {
     // Dereference the window object, usually you would store windows
